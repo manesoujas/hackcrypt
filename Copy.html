@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackCrypt | The Endgame of Hackathons</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP Core & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Added TextPlugin for the Iron Man text typing effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+
+    <style>
+        /* --- Custom Base Styles --- */
+        :root {
+            --stone-space: #3b82f6;
+            /* Blue */
+            --stone-mind: #eab308;
+            /* Yellow */
+            --stone-reality: #ef4444;
+            /* Red */
+            --stone-power: #a855f7;
+            /* Purple */
+            --stone-time: #10b981;
+            /* Emerald Green */
+            --stone-soul: #f97316;
+            /* Orange */
+        }
+
+        html,
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            cursor: url('t(1).png'), auto;
+            background-color: #050505;
+            color: white;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+            overflow-y: auto;
+            /* Ensure vertical scroll is always possible */
+            scroll-behavior: smooth;
+        }
+
+
+
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* --- Starry Background --- */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: none;
+            opacity: 0.6;
+        }
+
+        .nebula-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1), transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+            animation: nebula-pulse 10s infinite alternate;
+        }
+
+        @keyframes nebula-pulse {
+            0% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0.8;
+                transform: scale(1.1);
+            }
+        }
+
+        /* --- Animations --- */
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px currentColor;
+            }
+
+            50% {
+                box-shadow: 0 0 25px currentColor;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes rotate-rune {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-rune {
+            animation: rotate-rune 20s linear infinite;
+        }
+
+        /* --- CSS Masking for Hero Image --- */
+        .mask-image-gradient {
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
+
+        /* --- Card Flip --- */
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* --- Glitch Text --- */
+        .glitch {
+            position: relative;
+            color: white;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-1 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% {
+                clip: rect(10px, 9999px, 31px, 0);
+            }
+
+            20% {
+                clip: rect(80px, 9999px, 5px, 0);
+            }
+
+            40% {
+                clip: rect(20px, 9999px, 65px, 0);
+            }
+
+            60% {
+                clip: rect(40px, 9999px, 45px, 0);
+            }
+
+            80% {
+                clip: rect(10px, 9999px, 95px, 0);
+            }
+
+            100% {
+                clip: rect(60px, 9999px, 15px, 0);
+            }
+        }
+
+        /* Helper to hide missing images nicely */
+        img.error-hidden {
+            display: none !important;
+        }
+
+        .fallback-icon {
+            display: none;
+        }
+
+        img.error-hidden+.fallback-icon {
+            display: block;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #34d399;
+        }
+
+        /* Horizontal Scroll Section */
+        .horizontal-scroll-container {
+            width: 400%;
+            /* 4 sections */
+            height: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .panel {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            position: relative;
+        }
+
+        /* Problem Statement Glowing text effect */
+        .glow {
+            text-shadow:
+                0 0 5px #1067b9,
+                0 0 10px #1021b9,
+                0 0 20px #5f10b9,
+                0 0 40px #2910b9,
+                0 0 60px #105fb9d5;
+        }
+
+        /* Timeline Layout */
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background-color: #10b981;
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 0 15px #10b981;
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 0.7s ease-out;
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 0.7s ease-out;
+        }
+
+        .show.slide-left,
+        .show.slide-right {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Contact Us */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .container h1 {
+            margin-bottom: 50px;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        /* --- TURN ROW INTO 2-COLUMN GRID --- */
+        .contact-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* TWO COLUMNS */
+            gap: 40px;
+            position: relative;
+            margin-bottom: 50px;
+            align-items: stretch;
+            /* Both cards same height */
+        }
+
+        /* Main Cards — full width inside each column */
+        .card,
+        .card1 {
+            position: relative;
+            z-index: 1;
+            background: #2b2b2b;
+            border-radius: 15px;
+            padding: 30px 35px;
+            width: 100%;
+            /* FULL WIDTH OF COLUMN */
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Title */
+        .card h2,
+        .card1 h2 {
+            margin-bottom: 15px;
+        }
+
+        /* Links */
+        .card1 a {
+            color: #3399ff;
+            text-decoration: none;
+        }
+
+        /* ------------ RESPONSIVE DESIGN ------------- */
+
+        /* Tablets */
+        @media (max-width: 900px) {
+            .contact-row {
+                gap: 25px;
+            }
+        }
+
+        /* Mobile (single column) */
+        @media (max-width: 600px) {
+
+            .contact-row {
+                grid-template-columns: 1fr;
+                /* STACK vertically */
+                gap: 20px;
+                padding: 40px 10px;
+            }
+
+            .card,
+            .card1 {
+                width: 100%;
+                min-height: auto;
+            }
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 800px) {
+            .bg-card {
+                display: none;
+                /* Hides background containers on small screens */
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased" style="
+    background: url('bg.png') no-repeat center center fixed;
+    background-size: cover;
+">
+
+
+    <!-- Backgrounds -->
+    <div class="stars"></div>
+    <div class="nebula-overlay"></div>
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen"
+        class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center text-center">
+        <div class="relative mb-8 animate-float">
+            <!-- Gauntlet Image with Fallback -->
+            <img src="Thanos-Infinity.png" alt="Infinity Gauntlet" id="splash-gauntlet"
+                class="h-64 md:h-96 w-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+                onerror="this.classList.add('error-hidden')">
+
+            <!-- Fallback Icon if Image Fails -->
+            <div class="fallback-icon text-9xl text-[#d4af37]" id="splash-fallback">
+                <i class="fa-solid fa-hand-fist"></i>
+            </div>
+
+            <div class="absolute top-0 left-0 w-full h-full bg-white opacity-0 rounded-full" id="snap-flash"></div>
+        </div>
+        <h1 class="text-4xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 font-bold opacity-0 transform translate-y-10"
+            id="splash-text">
+            Welcome to HackCrypt
+        </h1>
+        <p class="text-gray-400 mt-4 opacity-0" id="splash-sub">The Universe is in your hands</p>
+        <button id="enter-btn"
+            class="mt-10 px-8 py-3 border border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-black transition-all opacity-0 uppercase tracking-widest cursor-pointer z-50">
+            Enter The Multiverse
+        </button>
+    </div>
+
+    <!-- IRON MAN TRANSITION OVERLAY -->
+    <!-- IRON MAN TRANSITION OVERLAY (video-based) -->
+    <div id="iron-man-overlay"
+        class="fixed inset-0 z-[90] bg-black hidden flex items-center justify-center pointer-events-none">
+        <div id="iron-man-wrapper" class="relative w-[min(1100px,92%)] rounded-lg overflow-hidden pointer-events-none">
+            <!-- Video: replace the src with your file(s). Keep muted for autoplay on most browsers -->
+            <video id="iron-man-video" muted playsinline preload="auto" webkit-playsinline crossorigin="anonymous"
+                style="width:100%; height:auto; display:block; transform:translateX(120px); opacity:0;">
+                <source src="scene.mp4" type="video/mp4">
+                <source src="/media/iron-man-snap.webm" type="video/webm">
+                <!-- fallback poster if desired -->
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- overlay text centered on video -->
+            <div id="im-text" aria-hidden="true" style="position:absolute; left:50%; top:54%; transform:translate(-50%,-50%); font-weight:900; text-align:center;
+                pointer-events:none; opacity:0; line-height:0.95; font-size:clamp(24px,6vw,64px); width:90%;"></div>
+
+        </div>
+
+        <!-- white flash element (covers whole screen, separate z-index) -->
+        <div id="white-flash" class="fixed inset-0 bg-white opacity-0 pointer-events-none"></div>
+    </div>
+
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-40 px-6 py-4 flex justify-between items-center bg-black/80 backdrop-blur-md border-b border-white/10 transition-transform duration-300"
+        id="navbar">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+            <!--<i class="fa-solid fa-infinity text-2xl text-purple-500"></i>-->
+            <img src="hackcrypt_logo.png" alt="hackcrypt_logo" width="70px" height="70px">
+            <span class="text-xl font-bold tracking-wider brand-font">HACKCRYPT</span>
+        </div>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex gap-8 text-sm tracking-widest uppercase text-gray-300 items-center">
+            <a href="#hero" class="hover:text-purple-400 transition-colors">Home</a>
+            <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
+            <a href="#endgame" class="hover:text-purple-400 transition-colors">Saga</a>
+            <a href="#time" class="hover:text-green-400 transition-colors">Time</a>
+            <a href="#problems" class="hover:text-blue-400 transition-colors">Problems</a>
+            <a href="#prizes" class="hover:text-red-400 transition-colors">Prizes</a>
+            <a href="#timeline-wrapper" class="hover:text-emerald-400 transition-colors">Timeline</a>
+            <a href="#contact_us" class="hover:text-red-400 transition-colors">Contact Us</a>
+            <!-- Navbar Stone Counter (Replaces HUD) -->
+            <div
+                class="border border-yellow-500/50 rounded px-3 py-1 text-[#d4af37] font-bold ml-4 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+                <i class="fa-solid fa-gem mr-2"></i><span id="nav-stone-count">0</span>/6
+            </div>
+        </div>
+
+        <button class="md:hidden text-2xl focus:outline-none" id="mobile-menu-btn" title="Open Mobile Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-30 bg-black/95 flex flex-col items-center justify-center gap-8 text-2xl transform translate-x-full transition-transform duration-300">
+        <a href="#hero" class="nav-link-mobile hover:text-purple-500">Home</a>
+        <a href="#about" class="nav-link-mobile hover:text-purple-500">About</a>
+        <a href="#endgame" class="nav-link-mobile hover:text-purple-500">The Saga</a>
+        <a href="#time" class="nav-link-mobile hover:text-green-500">Time</a>
+        <a href="#problems" class="nav-link-mobile hover:text-blue-500">Problems</a>
+        <a href="#timeline-wrapper" class="nav-link-mobile hover:text-emerald-500">Timeline</a>
+        <a href="#contact_us" class="nav-link-mobile hover:text-emerald-500">Contact Us</a>
+        <div class="text-[#d4af37] font-bold mt-4 border border-yellow-500/50 px-4 py-2 rounded">
+            <span id="mobile-stone-count">0</span>/6 STONES
+        </div>
+        <button id="close-menu" class="absolute top-6 right-6 text-3xl text-gray-400" title="Close Menu">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+
+        <!-- HERO SECTION (Space Background) -->
+        <section id="hero" class="min-h-screen flex items-center justify-center relative pt-20 stone-section"
+            data-stone="none">
+            <div class="text-center z-10 px-4">
+                <div class="mb-8 animate-float flex justify-center">
+                    <!-- Hero Image with Fallback -->
+                    <img src="hackcrypt_logo.png" title="HackCrypt Logo" class="h-72 sm:h-80 md:h-96 w-auto object-contain 
+            drop-shadow-[0_0_50px_rgba(168,85,247,0.4)] opacity-100 mask-image-gradient"
+                        onerror="this.classList.add('error-hidden')">
+
+
+                    <!-- Fallback Icon -->
+                    <div class="fallback-icon text-8xl text-gray-700">
+                        <i class="fa-solid fa-hand-fist"></i>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-8xl font-black mb-4 glitch" data-text="HACKCRYPT">HACKCRYPT</h1>
+                <p
+                    class="text-lg md:text-2xl text-purple-300 font-light tracking-[0.3em] md:tracking-[0.5em] uppercase bg-black/30 inline-block px-4 py-2 rounded backdrop-blur-sm">
+                    Assemble. Code. Conquer.</p>
+                <div class="mt-12 animate-bounce cursor-pointer"
+                    onclick="document.querySelector('#endgame').scrollIntoView({behavior: 'smooth'})">
+                    <i class="fa-solid fa-chevron-down text-2xl text-gray-500 hover:text-white transition-colors"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="py-20 border-t border-purple-900">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-white mb-2">About Us</h2>
+                    <p class="text-purple-400">Learn more about our mission and vision</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+
+                    <!-- Text Block 1 -->
+                    <div class="bg-gray-800/50 p-8 rounded-xl border-l-4 border-purple-500 shadow-lg text-center">
+                        <img src="Trcaclogo.png" alt="TRCAC Logo" class="mx-auto mb-4 h-52 w-52 object-contain">
+
+                        <p class="text-gray-300 leading-relaxed text-lg text-justify">
+                            Thakur Ramnarayan College of Arts and Commerce provides a vibrant and inclusive academic
+                            environment that supports student growth, faculty research, and community engagement. TRCAC
+                            emphasizes collaboration, personal development, and diverse perspectives to prepare students
+                            for a rapidly evolving world. Our Arts, Science, and Commerce programs focus on building
+                            critical thinking, strong communication, and a well-rounded foundation for professional
+                            success and responsible citizenship.
+                        </p>
+
+                        <!-- Centered Button -->
+                        <div class="mt-6">
+                            <a href="https://trcac.org.in/"
+                                class="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition">
+                                About TRCAC
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                    <div class="bg-gray-800/50 p-8 rounded-xl border-l-4 border-purple-500 shadow-lg text-center">
+                        <img src="club Logo .png" alt="DevClub Logo" class="mx-auto mb-4 h-52 w-52 object-contain">
+                        <p class="text-gray-300 leading-relaxed text-lg text-justify">
+                            DevClub TRCAC, under the B.Sc. (I.T.) and B.Sc. (C.S.) Department of TRCAC, is a dynamic
+                            club that nurtures creativity, technical skills, and teamwork. It hosts departmental events,
+                            competitions, and major hackathons while preparing students for external tech challenges.
+                            Its flagship ZETTAABYTE Tech Fest offers coding contests, robotics events, workshops, and
+                            tech talks—providing students with hands-on learning, networking opportunities, and a strong
+                            foundation to excel in the fast-evolving tech world.
+                        </p>
+
+                        <!-- Centered Button -->
+                        <div class="mt-6">
+                            <a href="#"
+                                class="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition">
+                                About DevClub
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!-- ENDGAME SAGA (Horizontal Scroll) -->
+        <div id="endgame-wrapper" class="overflow-hidden bg-black relative z-20">
+            <section id="endgame" class="h-screen flex items-center bg-black horizontal-scroll-container">
+
+                <!-- Intro Panel -->
+                <div class="panel bg-black border-r border-gray-900 flex-col text-center p-8 min-w-[100vw]">
+                    <h2 class="text-3xl md:text-9xl font-black text-gray-800 mb-4 uppercase">Cosmic Cypher</h2>
+                    <p class="text-base md:text-xl text-purple-500 tracking-[0.5em] animate-pulse">Scroll Down >></p>
+                </div>
+
+                <!-- Reality Stone (Red) -->
+                <div
+                    class="panel bg-gradient-to-b from-black via-red-900/20 to-black flex-col text-center min-w-[100vw] relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1583511655826-c48fb26411a6?q=80')] bg-cover opacity-20 mix-blend-overlay">
+                    </div>
+                    <h3 class="text-2xl md:text-7xl font-bold text-red-500 mb-6 z-10">"Rewrite Reality."</h3>
+                    <p class="text-sm md:text-lg text-gray-400 max-w-lg z-10 mx-auto">Transform ideas into real-world
+                        solutions. At HackCrypt, reality bends to your innovation.</p>
+                </div>
+
+                <!-- Power Stone (Purple) -->
+                <div
+                    class="panel bg-gradient-to-b from-black via-purple-900/20 to-black flex-col text-center min-w-[100vw] relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1633479399337-3d0c5c06525f?q=80')] bg-cover opacity-20 mix-blend-overlay">
+                    </div>
+                    <h3 class="text-2xl md:text-7xl font-bold text-purple-400 mb-6 z-10">"Unleash Your Power."</h3>
+                    <p class="text-sm md:text-lg text-gray-400 max-w-lg z-10 mx-auto">Write code that hits like a
+                        blast—strong, efficient, and unstoppable.</p>
+                </div>
+
+                <!-- Mind Stone (Yellow) -->
+                <div
+                    class="panel bg-gradient-to-b from-black via-yellow-900/20 to-black flex-col text-center min-w-[100vw] relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526378722439-7da7b1f27c4e?q=80')] bg-cover opacity-20 mix-blend-overlay">
+                    </div>
+                    <h3 class="text-2xl md:text-7xl font-bold text-yellow-400 mb-6 z-10">"Mind Over Code."</h3>
+                    <p class="text-sm md:text-lg text-gray-400 max-w-lg z-10 mx-auto">Think sharper. Build smarter. Let
+                        your logic lead every solution.</p>
+                </div>
+
+                <!-- Space Stone (Blue) -->
+                <div
+                    class="panel bg-gradient-to-b from-black via-blue-900/20 to-black flex-col text-center min-w-[100vw] relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80')] bg-cover opacity-20 mix-blend-overlay">
+                    </div>
+                    <h3 class="text-2xl md:text-7xl font-bold text-blue-500 mb-6 z-10">"Break All Boundaries."</h3>
+                    <p class="text-sm md:text-lg text-gray-400 max-w-lg z-10 mx-auto">Create solutions without limits.
+                        Your code can exist anywhere—just like the Space Stone.</p>
+                </div>
+
+                <!-- Time Stone (Green) -->
+                <div
+                    class="panel bg-gradient-to-b from-black via-green-900/20 to-black flex-col text-center min-w-[100vw] relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80')] bg-cover opacity-20 mix-blend-overlay">
+                    </div>
+                    <h3 class="text-2xl md:text-7xl font-bold text-green-500 mb-6 z-10">"Master Every Moment."</h3>
+                    <p class="text-sm md:text-lg text-gray-400 max-w-lg z-10 mx-auto">Optimize, iterate, and adapt. Time
+                        bends for those who build efficiently.</p>
+                </div>
+
+                <!-- Soul Stone (Orange) -->
+                <div
+                    class="panel bg-gradient-to-b from-black via-orange-900/20 to-black flex-col text-center min-w-[100vw] relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80')] bg-cover opacity-20 mix-blend-overlay">
+                    </div>
+                    <h3 class="text-2xl md:text-7xl font-bold text-orange-500 mb-6 z-10">"Code With Purpose."</h3>
+                    <p class="text-sm md:text-lg text-gray-400 max-w-lg z-10 mx-auto">Innovation with meaning. Build
+                        projects that connect, impact, and inspire.</p>
+                </div>
+
+                <!-- Final Panel -->
+                <div
+                    class="panel bg-gradient-to-b from-black via-gray-900/40 to-black flex-col text-center min-w-[100vw] relative overflow-hidden">
+                    <h3
+                        class="text-2xl md:text-7xl font-bold text-yellow-400 mb-6 z-10 drop-shadow-[0_0_15px_rgba(255,200,0,0.8)]">
+                        "Six Stones. One Snap."</h3>
+                    <img src="sl.png" alt="" class="h-40 w-53 mx-auto">
+                    <p class="text-sm md:text-lg text-gray-300 z-10 max-w-2xl mx-auto mt-4">You’ve mastered the
+                        stones—now wield the Gauntlet. Build a project powerful enough to reshape the hackathon
+                        battlefield.</p>
+                    <i class="fa-solid fa-chevron-down text-2xl md:text-3xl text-white mt-10 animate-bounce z-10"></i>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- TIME SECTION (Green) -->
+        <section id="time"
+            class="min-h-screen flex flex-col items-center justify-center relative border-t border-green-900/30 stone-section"
+            data-stone="time">
+            <div class="absolute top-10 right-10 opacity-20 hidden md:block">
+                <i class="fa-regular fa-clock text-9xl text-green-600 animate-spin-slow"></i>
+            </div>
+            <h2
+                class="text-4xl md:text-6xl text-green-400 font-bold mb-12 text-center drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]">
+                <i class="fa-solid fa-gem mr-4"></i>TIME IS TICKING
+            </h2>
+
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-center px-4">
+                <div
+                    class="bg-black/40 border border-green-500/50 p-6 rounded-xl backdrop-blur-md w-28 md:w-36 shadow-[0_0_20px_rgba(34,197,94,0.1)]">
+                    <div class="text-3xl md:text-5xl font-bold text-white" id="days">00</div>
+                    <div class="text-xs text-green-400 mt-2 uppercase tracking-widest">Days</div>
+                </div>
+                <div
+                    class="bg-black/40 border border-green-500/50 p-6 rounded-xl backdrop-blur-md w-28 md:w-36 shadow-[0_0_20px_rgba(34,197,94,0.1)]">
+                    <div class="text-3xl md:text-5xl font-bold text-white" id="hours">00</div>
+                    <div class="text-xs text-green-400 mt-2 uppercase tracking-widest">Hours</div>
+                </div>
+                <div
+                    class="bg-black/40 border border-green-500/50 p-6 rounded-xl backdrop-blur-md w-28 md:w-36 shadow-[0_0_20px_rgba(34,197,94,0.1)]">
+                    <div class="text-3xl md:text-5xl font-bold text-white" id="minutes">00</div>
+                    <div class="text-xs text-green-400 mt-2 uppercase tracking-widest">Minutes</div>
+                </div>
+                <div
+                    class="bg-black/40 border border-green-500/50 p-6 rounded-xl backdrop-blur-md w-28 md:w-36 shadow-[0_0_20px_rgba(34,197,94,0.1)] animate-pulse">
+                    <div class="text-3xl md:text-5xl font-bold text-white" id="seconds">00</div>
+                    <div class="text-xs text-green-400 mt-2 uppercase tracking-widest">Seconds</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEMS SECTION (Space Stone - Blue) -->
+        <section id="problems" class="min-h-screen py-20 px-6 relative border-t border-blue-900/30 stone-section"
+            data-stone="space">
+            <h2
+                class="text-4xl md:text-6xl text-blue-400 font-bold mb-16 text-center drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                <i class="fa-solid fa-cube mr-4"></i>PROBLEM STATEMENTS
+            </h2>
+
+            <!-- Coming Soon Message -->
+            <div class="flex items-center justify-center min-h-[50vh]">
+                <h3 class="text-5xl md:text-7xl font-extrabold text-emerald-400 glow animate-pulse">
+                    Coming Soon
+                </h3>
+            </div>
+
+            <!--<div class="text-center mt-16">
+                <button
+                    class="px-8 py-3 border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-black transition-all uppercase tracking-widest rounded font-bold">
+                    View All Tracks
+                </button>
+            </div>-->
+        </section>
+
+        <!-- PRIZES SECTION (Reality Stone - Red) -->
+        <section id="prizes" class="min-h-screen py-20 px-6 relative border-t border-red-900/30 stone-section"
+            data-stone="reality">
+            <h2
+                class="text-4xl md:text-6xl text-red-500 font-bold mb-16 text-center drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]">
+                <i class="fa-solid fa-trophy mr-4"></i>BOUNTIES
+            </h2>
+
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- First Prize -->
+                <div class="flip-card h-96 w-full perspective cursor-pointer group">
+                    <div
+                        class="card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d">
+                        <div
+                            class="card-front absolute w-full h-full bg-black/40 border border-red-500/50 rounded-xl flex flex-col items-center justify-center backface-hidden shadow-[0_0_20px_rgba(239,68,68,0.1)]">
+                            <i class="fa-solid fa-crown text-6xl text-yellow-500 mb-6 drop-shadow-lg"></i>
+                            <h3 class="text-3xl font-bold text-white">1st Place</h3>
+                            <p class="text-red-400 mt-2 tracking-widest uppercase text-sm">Sorcerer Supreme</p>
+                            <p class="mt-6 text-xs text-gray-500">Hover to reveal</p>
+                        </div>
+                        <div
+                            class="card-back absolute w-full h-full bg-gradient-to-br from-red-900 to-black border border-red-500 rounded-xl flex flex-col items-center justify-center backface-hidden rotate-y-180">
+                            <h3 class="text-5xl font-bold text-white">₹40,000</h3>
+                            <div class="w-16 h-1 bg-white my-4"></div>
+                            <p class="text-white">+ Trophies <br> + Medals <br> + Certificates</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Prize -->
+                <div class="flip-card h-96 w-full perspective cursor-pointer group">
+                    <div
+                        class="card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d">
+                        <div
+                            class="card-front absolute w-full h-full bg-black/40 border border-gray-500/50 rounded-xl flex flex-col items-center justify-center backface-hidden shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+                            <i class="fa-solid fa-medal text-6xl text-gray-400 mb-6"></i>
+                            <h3 class="text-3xl font-bold text-white">2nd Place</h3>
+                            <p class="text-gray-400 mt-2 tracking-widest uppercase text-sm">Winter Soldier</p>
+                            <p class="mt-6 text-xs text-gray-500">Hover to reveal</p>
+                        </div>
+                        <div
+                            class="card-back absolute w-full h-full bg-gradient-to-br from-gray-800 to-black border border-gray-500 rounded-xl flex flex-col items-center justify-center backface-hidden rotate-y-180">
+                            <h3 class="text-5xl font-bold text-white">₹25,000</h3>
+                            <div class="w-16 h-1 bg-white my-4"></div>
+                            <p class="text-white">+ Trophies <br> + Medals <br> + Certificates</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Prize -->
+                <div class="flip-card h-96 w-full perspective cursor-pointer group">
+                    <div
+                        class="card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d">
+                        <div
+                            class="card-front absolute w-full h-full bg-black/40 border border-orange-500/50 rounded-xl flex flex-col items-center justify-center backface-hidden shadow-[0_0_20px_rgba(249,115,22,0.1)]">
+                            <i class="fa-solid fa-medal text-6xl text-orange-600 mb-6"></i>
+                            <h3 class="text-3xl font-bold text-white">3rd Place</h3>
+                            <p class="text-orange-400 mt-2 tracking-widest uppercase text-sm">Guardian</p>
+                            <p class="mt-6 text-xs text-gray-500">Hover to reveal</p>
+                        </div>
+                        <div
+                            class="card-back absolute w-full h-full bg-gradient-to-br from-orange-900 to-black border border-orange-500 rounded-xl flex flex-col items-center justify-center backface-hidden rotate-y-180">
+                            <h3 class="text-5xl font-bold text-white">₹15,000</h3>
+                            <div class="w-16 h-1 bg-white my-4"></div>
+                            <p class="text-white">+ Trophies <br> + Medals <br> + Certificates</p>
+                        </div>
+                    </div>
+                </div>
+            </div><br><br>
+
+            <div class="max-w-5xl mx-auto flex gap-8 justify-center flex-wrap">
+
+                <!--Fourth Prize-->
+                <div class="flip-card h-96 w-[320px] perspective cursor-pointer group">
+                    <div
+                        class="card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+
+                        <!-- FRONT -->
+                        <div
+                            class="card-front absolute w-full h-full bg-black/40 border border-blue-500/50 rounded-xl flex flex-col items-center justify-center backface-hidden shadow-[0_0_20px_rgba(59,130,246,0.1)]">
+                            <i class="fa-solid fa-award text-6xl text-blue-600 mb-6"></i>
+                            <h3 class="text-3xl font-bold text-white">4th Place</h3>
+                            <p class="text-blue-400 mt-2 tracking-widest uppercase text-sm">Defender</p>
+                            <p class="mt-6 text-xs text-gray-500">Hover to reveal</p>
+                        </div>
+
+                        <!-- BACK -->
+                        <div
+                            class="card-back absolute w-full h-full bg-gradient-to-br from-blue-900 to-black border border-blue-500 rounded-xl flex flex-col items-center justify-center backface-hidden rotate-y-180">
+                            <h3 class="text-5xl font-bold text-white">₹10,000</h3>
+                            <div class="w-16 h-1 bg-white my-4"></div>
+                            <p class="text-white">+ Certificates</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Fifth Prize-->
+                <div class="flip-card h-96 w-[320px] perspective cursor-pointer group">
+                    <div
+                        class="card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+
+                        <!-- FRONT -->
+                        <div
+                            class="card-front absolute w-full h-full bg-black/40 border border-purple-500/50 rounded-xl flex flex-col items-center justify-center backface-hidden shadow-[0_0_20px_rgba(168,85,247,0.1)]">
+                            <i class="fa-solid fa-star text-6xl text-purple-600 mb-6"></i>
+                            <h3 class="text-3xl font-bold text-white">5th Place</h3>
+                            <p class="text-purple-400 mt-2 tracking-widest uppercase text-sm">Warrior</p>
+                            <p class="mt-6 text-xs text-gray-500">Hover to reveal</p>
+                        </div>
+
+                        <!-- BACK -->
+                        <div
+                            class="card-back absolute w-full h-full bg-gradient-to-br from-purple-900 to-black border border-purple-500 rounded-xl flex flex-col items-center justify-center backface-hidden rotate-y-180">
+                            <h3 class="text-5xl font-bold text-white">₹10,000</h3>
+                            <div class="w-16 h-1 bg-white my-4"></div>
+                            <p class="text-white">+ Certificates</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- SPONSORS (Power Stone - Purple) -->
+        <section id="sponsors" class="min-h-[60vh] py-20 px-6 border-t border-purple-900/30 stone-section"
+            data-stone="power">
+            <h2
+                class="text-4xl md:text-6xl text-purple-500 font-bold mb-16 text-center drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                <i class="fa-solid fa-bolt mr-4"></i>ALLIANCE
+            </h2>
+            <div class="flex flex-wrap justify-center gap-16 opacity-70 max-w-5xl mx-auto">
+                <!-- Mock Logos -->
+                <div
+                    class="text-4xl text-gray-500 font-bold hover:text-purple-400 transition-all hover:scale-110 cursor-pointer tracking-widest">
+                    Coming Soon</div>
+                <!-- <div
+                    class="text-4xl text-gray-500 font-bold hover:text-purple-400 transition-all hover:scale-110 cursor-pointer tracking-widest">
+                    OSCORP</div> -->
+                <!-- <div
+                    class="text-4xl text-gray-500 font-bold hover:text-purple-400 transition-all hover:scale-110 cursor-pointer tracking-widest">
+                    PYM TECH</div> -->
+                <!-- <div
+                    class="text-4xl text-gray-500 font-bold hover:text-purple-400 transition-all hover:scale-110 cursor-pointer tracking-widest">
+                    WAKANDA</div> -->
+                <!-- <div
+                    class="text-4xl text-gray-500 font-bold hover:text-purple-400 transition-all hover:scale-110 cursor-pointer tracking-widest">
+                    SHIELD</div> -->
+            </div>
+        </section>
+
+        <!-- TIMELINE (UPDATED: HORIZONTAL SCROLL - Time Stone) -->
+        <div id="timeline-wrapper"
+            class="overflow-hidden bg-transparent relative z-20 border-t border-emerald-900/30 stone-section"
+            data-stone="time">
+            <!-- Mystical Rune Background (Fixed within the scroll wrapper) -->
+            <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-emerald-500/20 rounded-full animate-rune pointer-events-none z-0">
+            </div>
+
+            <section id="timeline" class="bg-transparent py-20 flex flex-col items-center">
+
+                <!-- Title Section -->
+                <div class="text-center mb-20">
+                    <h2
+                        class="text-6xl md:text-8xl text-emerald-500 font-bold drop-shadow-[0_0_25px_rgba(16,185,129,0.8)]">
+                        TIMELINE
+                    </h2>
+                    <p class="text-emerald-300 text-xl tracking-[0.4em] animate-pulse mt-4">
+                        Scroll to Warp Time ↓↓
+                    </p>
+                </div>
+
+                <div class="relative w-full max-w-5xl">
+
+                    <!-- Vertical Line -->
+                    <div class="absolute left-1/2 md:left-1/2 top-0 bottom-0 w-1 bg-emerald-500 opacity-40"></div>
+
+                    <!-- Event 1 -->
+                    <div class="timeline-item left-item flex items-center justify-start w-full relative py-12">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card slide-left bg-black/40 text-white shadow-xl p-6 rounded-lg w-60 md:w-72 backdrop-blur-sm text-left
+                       transition transform hover:scale-105 hover:shadow-2xl hover:bg-black/70">
+                            <h3 class="font-bold text-xl">Registration Open</h3>
+                            <p class="text-gray-300">5<sup>th</sup> December</p>
+                        </div>
+                    </div>
+
+                    <!-- Event 2 -->
+                    <div class="timeline-item right-item flex items-center justify-end w-full relative py-12">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card slide-right bg-black/40 text-white shadow-xl p-6 rounded-lg w-60 md:w-72 backdrop-blur-sm text-right md:text-left
+                       transition transform hover:scale-105 hover:shadow-2xl hover:bg-black/70">
+                            <h3 class="font-bold text-xl">Preliminary Round</h3>
+                            <p class="text-gray-300">29<sup>th</sup> December</p>
+                        </div>
+                    </div>
+
+                    <!-- Event 3 -->
+                    <div class="timeline-item left-item flex items-center justify-start w-full relative py-12">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card slide-left bg-black/40 text-white shadow-xl p-6 rounded-lg w-60 md:w-72 backdrop-blur-sm text-left
+                       transition transform hover:scale-105 hover:shadow-2xl hover:bg-black/70">
+                            <h3 class="font-bold text-xl">Last Date to Register</h3>
+                            <p class="text-gray-300">5<sup>th</sup> January</p>
+                        </div>
+                    </div>
+
+                    <!-- Event 4 -->
+                    <div class="timeline-item right-item flex items-center justify-end w-full relative py-12">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card slide-right bg-black/40 text-white shadow-xl p-6 rounded-lg w-60 md:w-72 backdrop-blur-sm text-right md:text-left
+                       transition transform hover:scale-105 hover:shadow-2xl hover:bg-black/70">
+                            <h3 class="font-bold text-xl">Deadline (Preliminary)</h3>
+                            <p class="text-gray-300">7<sup>th</sup> January</p>
+                        </div>
+                    </div>
+
+                    <!-- Event 5 -->
+                    <div class="timeline-item left-item flex items-center justify-start w-full relative py-12">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card slide-left bg-black/40 text-white shadow-xl p-6 rounded-lg w-60 md:w-72 backdrop-blur-sm text-left
+                       transition transform hover:scale-105 hover:shadow-2xl hover:bg-black/70">
+                            <h3 class="font-bold text-xl">Evaluation</h3>
+                            <p class="text-gray-300">8<sup>th</sup> January</p>
+                        </div>
+                    </div>
+
+                    <!-- Event 6 -->
+                    <div class="timeline-item right-item flex items-center justify-end w-full relative py-12">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card slide-right bg-black/40 text-white shadow-xl p-6 rounded-lg w-60 md:w-72 backdrop-blur-sm text-right md:text-left
+                       transition transform hover:scale-105 hover:shadow-2xl hover:bg-black/70">
+                            <h3 class="font-bold text-xl">Shortlisted Teams</h3>
+                            <p class="text-gray-300">9<sup>th</sup> January</p>
+                        </div>
+                    </div>
+
+                    <!-- Event 7 -->
+                    <div class="timeline-item left-item flex items-center justify-start w-full relative py-12">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card slide-left bg-black/40 text-white shadow-xl p-6 rounded-lg w-60 md:w-72 backdrop-blur-sm text-left
+                       transition transform hover:scale-105 hover:shadow-2xl hover:bg-black/70">
+                            <h3 class="font-bold text-xl">Problem Statement</h3>
+                            <p class="text-gray-300">10<sup>th</sup> January</p>
+                        </div>
+                    </div>
+
+                    <!-- Event 8 -->
+                    <div class="timeline-item right-item flex items-center justify-end w-full relative py-12">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card slide-right bg-black/40 text-white shadow-xl p-6 rounded-lg w-60 md:w-72 backdrop-blur-sm text-right md:text-left
+                       transition transform hover:scale-105 hover:shadow-2xl hover:bg-black/70">
+                            <h3 class="font-bold text-xl">Main Event</h3>
+                            <p class="text-gray-300">16<sup>th</sup> & 17<sup>th</sup> January</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+
+        <!-- GUIDELINES & REGISTER (Mind Stone - Yellow) -->
+        <section id="guidelines"
+            class="min-h-screen py-20 px-6 border-t border-yellow-900/30 flex flex-col items-center justify-center stone-section"
+            data-stone="mind">
+            <h2
+                class="text-4xl md:text-6xl text-yellow-500 font-bold mb-8 text-center drop-shadow-[0_0_15px_rgba(234,179,8,0.5)]">
+                <i class="fa-solid fa-brain mr-4"></i>PROTOCOL
+            </h2>
+
+            <div
+                class="max-w-2xl text-center mb-16 text-gray-300 leading-relaxed text-lg bg-black/40 p-8 rounded-2xl backdrop-blur border border-white/10">
+                <p class="mb-4"><span class="text-yellow-500 font-bold">01.</span> Teams must consist of 2-5 members.
+                </p>
+                <p class="mb-4"><span class="text-yellow-500 font-bold">02.</span> All code must be written during the
+                    event.</p>
+                <p class="mb-4"><span class="text-yellow-500 font-bold">03.</span> Decisions of the jury are final and
+                    binding.</p>
+                <p><span class="text-yellow-500 font-bold">04.</span> Plagiarism will lead to immediate disqualification
+                    (snapped out of existence).</p>
+            </div>
+
+            <!-- THE BIG BUTTON -->
+            <div class="relative group transform transition-transform hover:scale-105 duration-300">
+                <div
+                    class="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-red-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200">
+                </div>
+                <button id="register-trigger-btn"
+                    class="relative px-12 py-6 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600 disabled:opacity-50 disabled:cursor-not-allowed border border-white/10">
+                    <span class="flex items-center space-x-5">
+                        <i class="fa-solid fa-power-off text-yellow-500 text-2xl animate-pulse"></i>
+                        <span class="pr-6 text-gray-100 text-2xl font-bold tracking-wider">INITIATE PROTOCOL</span>
+                    </span>
+                    <span
+                        class="pl-6 text-yellow-500 group-hover:text-white transition duration-200 text-sm uppercase tracking-widest font-bold">
+                        Register Now
+                    </span>
+                </button>
+            </div>
+
+            <!-- STATUS MESSAGES CONTAINER -->
+            <div id="status-msg-container" class="mt-8 text-center min-h-[40px]">
+                <!-- Removed "Access Denied" message as requested -->
+
+                <p class="hidden text-green-400 text-lg font-bold tracking-widest animate-bounce drop-shadow-[0_0_10px_rgba(74,222,128,0.8)]"
+                    id="success-msg">
+                    <i class="fa-solid fa-check-circle mr-2"></i>CONGRATULATIONS: YOU HAVE COLLECTED ALL 6 STONES
+                </p>
+            </div>
+
+        </section>
+        <section id="contact_us">
+            <div class="container">
+                <h1>Contact Us</h1>
+
+                <div class="contact-row">
+                    <!-- Background Cards -->
+                    <div class="bg-card bg-left"></div>
+                    <div class="bg-card bg-right"></div>
+
+                    <!-- Actual Main Cards -->
+                    <div
+                        class="card grid grid-cols-1 sm:grid-cols-2 gap-6 p-6 rounded-lg bg-gray-800/70 shadow-lg text-lg">
+                        <!-- Technical Queries Column -->
+                        <div>
+                            <h2 class="text-purple-400 font-semibold mb-2">Technical</h2>
+                            <p>Shivang</p>
+                            <p>+91 87880 83267</p>
+                            <p>Soujas Mane</p>
+                            <p>+91 84510 69187</p>
+                        </div>
+
+                        <!-- Management Column -->
+                        <div>
+                            <h2 class="text-purple-400 font-semibold mb-2">Management</h2>
+                            <p>Omkar More</p>
+                            <p>+91 85911 16173</p>
+                            <p>Nirrav Sawla</p>
+                            <p>+91 93217 32444</p>
+                        </div>
+                    </div>
+
+
+                    <div class="card1 p-6 rounded-lg bg-gray-800/70 shadow-lg">
+                        <h2 class="text-purple-400 font-semibold mb-2">Address</h2>
+                        <p>
+                            Thakur Ramnarayan College Of Arts And Commerce <br>
+                            Thakur Educational Campus<br>
+                            S.V. Road, Dahisar (East), Mumbai - 400068
+                        </p>
+
+                        <p><a href="tel:07710058545" class="text-green-400 hover:underline">077100 58545</a></p>
+                        <p><a href="https://trcac.org.in" target="_blank" rel="noopener"
+                                class="text-green-400 hover:underline">trcac.org.in</a></p>
+                    </div>
+                </div>
+
+
+
+                <!-- Google Map -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3766.628326026974!2d72.86421857511328!3d19.25502344632818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b1003fe46019%3A0xf7674c1cce98c95a!2sThakur%20Ramnarayan%20College%20of%20Arts%20and%20Commerce!5e0!3m2!1sen!2sin!4v1764657803356!5m2!1sen!2sin"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- REGISTRATION FORM (Hidden Initially) -->
+    <!-- Recreated with IRON MAN Theme -->
+    <section id="registration-section"
+        class="min-h-screen hidden w-full bg-[#050000] relative z-50 py-20 px-4 overflow-y-auto font-mono">
+
+        <div class="absolute inset-0 opacity-10 bg-grid-pattern"></div>
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-red-900/20 to-transparent"></div>
+        <div class="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-red-900/10 to-transparent"></div>
+        <div class="absolute inset-0 opacity-10"
+            style="background-image: linear-gradient(#d4af37 1px, transparent 1px), linear-gradient(90deg, #d4af37 1px, transparent 1px); background-size: 50px 50px;">
+        </div>
+        </div>
+
+        <div
+            class="fixed top-0 left-0 w-full z-[60] py-6 px-6 md:px-12 flex items-center bg-gradient-to-b from-black/90 to-transparent">
+            <button id="back-to-home-btn"
+                class="text-cyan-400 hover:text-white flex items-center gap-3 transition-all group font-bold tracking-widest uppercase text-sm border border-cyan-500/30 hover:border-cyan-400 px-4 py-2 rounded bg-cyan-900/20 backdrop-blur-md">
+                <i class="fa-solid fa-chevron-left transform group-hover:-translate-x-1 transition-transform"></i>
+                <span>ABORT MISSION</span>
+            </button>
+        </div>
+
+        <div class="max-w-5xl mx-auto mt-12 relative z-10">
+
+            <div
+                class="relative bg-[#1a0505] border-2 border-[#7a0000] rounded-3xl p-1 shadow-[0_0_100px_rgba(255,0,0,0.2)] overflow-hidden">
+
+                <div
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent shadow-[0_0_10px_#d4af37]">
+                </div>
+
+                <div class="bg-black/80 rounded-[20px] p-8 md:p-12 relative overflow-hidden">
+                    <div class="flex flex-col items-center justify-center mb-10 relative">
+                        <div
+                            class="w-24 h-24 rounded-full border-4 border-cyan-500 bg-cyan-900/20 shadow-[0_0_50px_#06b6d4] flex items-center justify-center animate-pulse relative z-10">
+                            <div
+                                class="w-16 h-16 rounded-full border-2 border-white bg-cyan-400/20 flex items-center justify-center">
+                                <div class="w-8 h-8 bg-white rounded-full shadow-[0_0_20px_white]"></div>
+                            </div>
+                        </div>
+                        <div class="absolute top-1/2 left-0 w-full h-[1px] bg-cyan-900/50 z-0"></div>
+                        <h2
+                            class="mt-6 text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 tracking-widest uppercase drop-shadow-lg font-['Orbitron']">
+                            STARK <span class="text-red-600">INDUSTRIES</span></h2>
+                        <p class="text-cyan-500 text-xs tracking-[0.5em] mt-2">SECURE SERVER // ENCRYPTION: LEVEL 8</p>
+                    </div>
+
+                    <form id="reg-form" class="space-y-10">
+
+                        <div class="relative border border-red-900/50 rounded-xl p-6 bg-red-950/5">
+                            <div
+                                class="absolute -top-3 left-6 bg-[#0a0000] px-4 text-yellow-500 text-sm font-bold tracking-widest border border-red-900/50 rounded">
+                                <i class="fa-solid fa-fingerprint mr-2"></i>TEAM NAME
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2">
+                                <div class="group relative">
+                                    <label for="team-designation"
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Team
+                                        Designation</label>
+                                    <input type="text" id="team-designation" name="teamDesignation" required
+                                        class="w-full bg-black/50 border-b-2 border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none transition-all font-mono placeholder-gray-700 focus:bg-cyan-900/10"
+                                        placeholder="ENTER TEAM NAME">
+                                    <div
+                                        class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    </div>
+                                </div>
+                                <div class="group relative">
+                                    <label for="prime-contact-email"
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Prime
+                                        Contact (Email)</label>
+                                    <input type="email" id="prime-contact-email" name="primeContactEmail" required
+                                        class="w-full bg-black/50 border-b-2 border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none transition-all font-mono placeholder-gray-700 focus:bg-cyan-900/10"
+                                        placeholder="EMAIL@ADDRESS.COM">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                                <div class="group relative">
+                                    <label for="code-repository"
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Code
+                                        Repository</label>
+                                    <input type="url" id="code-repository" name="codeRepository"
+                                        class="w-full bg-black/50 border-b-2 border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none transition-all font-mono placeholder-gray-700 focus:bg-cyan-900/10"
+                                        placeholder="GITHUB.COM/PROJECT">
+                                </div>
+                                <div class="group relative">
+                                    <label for="comms-frequency-phone"
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Comms
+                                        Frequency (Phone)</label>
+                                    <input type="tel" id="comms-frequency-phone" name="commsFrequencyPhone" required
+                                        class="w-full bg-black/50 border-b-2 border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none transition-all font-mono placeholder-gray-700 focus:bg-cyan-900/10"
+                                        placeholder="+XX XXXXX XXXXX">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative border border-red-900/50 rounded-xl p-6 bg-red-950/5">
+                            <div
+                                class="absolute -top-3 left-6 bg-[#0a0000] px-4 text-yellow-500 text-sm font-bold tracking-widest border border-red-900/50 rounded">
+                                <i class="fa-solid fa-crosshairs mr-2"></i>MISSION PARAMETERS
+                            </div>
+
+                            <div class="mt-2">
+                                <label for="mission-track"
+                                    class="block text-[10px] uppercase text-cyan-600 mb-2 tracking-widest">Select
+                                    Track</label>
+                                <div class="relative">
+                                    <select id="mission-track" name="missionTrack" title="Select a project track"
+                                        class="w-full bg-black/50 border border-red-800 text-white p-4 rounded focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.3)] focus:outline-none transition-all appearance-none font-mono cursor-pointer">
+                                        <option value="cyber-sentinel" class="bg-black">PROJECT: Cyber Sentinel</option>
+                                        <option value="quantum-mesh" class="bg-black">PROJECT: Quantum Mesh</option>
+                                        <option value="meta-medic" class="bg-black">PROJECT: Meta-Medic</option>
+                                        <option value="open-innovation" class="bg-black">PROJECT: Open Innovation
+                                        </option>
+                                    </select>
+                                    <div
+                                        class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-cyan-500">
+                                        <i class="fa-solid fa-caret-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <h3
+                                class="text-yellow-500 text-sm font-bold tracking-widest border-b border-red-900/50 pb-2 mb-6 flex items-center">
+                                <i class="fa-solid fa-user-group mr-2"></i>ADDITIONAL ASSETS
+                            </h3>
+
+                            <div id="members-container" class="space-y-4">
+                            </div>
+
+                            <button type="button" id="add-member-btn"
+                                class="mt-4 text-xs text-cyan-400 hover:text-white transition-colors flex items-center gap-2 font-bold tracking-widest border border-cyan-500/30 px-4 py-2 rounded hover:bg-cyan-500/10 uppercase">
+                                <i class="fa-solid fa-plus-square"></i> Recruit Operative
+                            </button>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-700 to-red-900 p-1 shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] transition-all duration-300 transform hover:-translate-y-1">
+                            <div
+                                class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30">
+                            </div>
+                            <div
+                                class="relative bg-black/20 rounded-lg py-5 px-4 backdrop-blur-sm border border-red-500/30 group-hover:border-yellow-500/50 transition-colors">
+                                <div class="flex items-center justify-center gap-4">
+                                    <i
+                                        class="fa-solid fa-power-off text-2xl text-cyan-400 animate-pulse group-hover:text-white"></i>
+                                    <span
+                                        class="text-xl font-black text-white tracking-[0.2em] font-['Orbitron'] group-hover:text-yellow-400 transition-colors">INITIALIZE
+                                        PROTOCOL</span>
+                                </div>
+                            </div>
+                        </button>
+
+                    </form>
+                    <div
+                        class="mt-8 flex justify-between text-[10px] text-red-900 uppercase tracking-widest font-mono select-none">
+                        <span>Sys.Ver. 85.0.1</span>
+                        <span>Stark Ind. Property</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-12 text-center relative z-40">
+        <div class="flex justify-center gap-8 mb-8 text-2xl text-gray-500">
+            <i
+                class="fa-brands fa-instagram hover:text-pink-500 transition-colors cursor-pointer hover:scale-125 duration-300"></i>
+            <i
+                class="fa-brands fa-twitter hover:text-blue-400 transition-colors cursor-pointer hover:scale-125 duration-300"></i>
+            <i
+                class="fa-brands fa-github hover:text-white transition-colors cursor-pointer hover:scale-125 duration-300"></i>
+            <i
+                class="fa-brands fa-linkedin hover:text-blue-700 transition-colors cursor-pointer hover:scale-125 duration-300"></i>
+        </div>
+        <p class="text-gray-600 text-sm tracking-widest">©Developed and maintained by DevClub TRCAC.</p>
+    </footer>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // --- STATE MANAGEMENT ---
+        const state = {
+            stones: {
+                power: false,
+                space: false,
+                reality: false,
+                soul: false,
+                time: false,
+                mind: false
+            },
+            collectedCount: 0
+        };
+
+        // Register GSAP Plugins
+        gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+        // --- SPLASH SCREEN LOGIC ---
+        const splashTL = gsap.timeline();
+
+        // Ensure scroll is allowed on load
+        document.body.style.overflowY = 'auto';
+
+        window.onload = function () {
+            splashTL.to("#splash-gauntlet", { scale: 1.05, duration: 3, ease: "power1.inOut", yoyo: true, repeat: -1 })
+                .to("#splash-text", { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=2.5")
+                .to("#splash-sub", { opacity: 1, duration: 1 }, "-=0.5")
+                .to("#enter-btn", { opacity: 1, duration: 0.5 });
+        };
+
+        // Snap Event
+        document.getElementById('enter-btn').addEventListener('click', () => {
+            const snapTL = gsap.timeline();
+
+            // Snap Animation
+            snapTL.to("#splash-gauntlet", { scale: 0.9, duration: 0.2, ease: "power2.in" }) // Anticipation
+                .to("#splash-gauntlet", { scale: 1.2, rotation: 5, duration: 0.1, ease: "elastic.out(1, 0.3)" }) // Snap
+                .to("#snap-flash", { opacity: 1, duration: 0.1 }) // Flash
+                .to("#splash-screen", { opacity: 0, duration: 0.5, delay: 0.1 })
+                .set("#splash-screen", { display: "none" });
+        });
+
+        // --- ENDGAME SCROLL ANIMATION ---
+        // We use a timeout to ensure DOM is fully rendered before pinning
+        setTimeout(() => {
+            let sections = gsap.utils.toArray(".panel");
+            gsap.to(sections, {
+                xPercent: -100 * (sections.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#endgame",
+                    pin: true,
+                    scrub: 1,
+                    snap: 1 / (sections.length - 1),
+                    end: () => "+=" + document.querySelector("#endgame").offsetWidth
+                }
+            });
+        }, 100);
+
+        // --- TIMELINE SCROLL ANIMATION (New Horizontal) ---
+        const cards = document.querySelectorAll(".timeline-card");
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.3 });
+
+        cards.forEach(card => observer.observe(card));
+
+        // --- STONE COLLECTION LOGIC (ScrollTrigger) ---
+        const stoneColors = {
+            power: '#a855f7', space: '#3b82f6', reality: '#ef4444',
+            soul: '#f97316', time: '#10b981', mind: '#eab308'
+        };
+
+        document.querySelectorAll('.stone-section').forEach((section) => {
+            const stoneType = section.dataset.stone;
+            if (stoneType === 'none') return;
+
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top 60%", // Trigger earlier for better UX
+                onEnter: () => collectStone(stoneType),
+                onLeaveBack: () => removeStone(stoneType)
+            });
+        });
+
+        function collectStone(type) {
+            if (state.stones[type]) return;
+
+            state.stones[type] = true;
+            state.collectedCount++;
+            updateHUD();
+        }
+
+        function removeStone(type) {
+            if (!state.stones[type]) return;
+
+            state.stones[type] = false;
+            state.collectedCount--;
+            updateHUD();
+        }
+
+        function updateHUD() {
+            // Update Desktop Nav Counter
+            document.getElementById('nav-stone-count').innerText = state.collectedCount;
+
+            // Update Mobile Nav Counter
+            document.getElementById('mobile-stone-count').innerText = state.collectedCount;
+
+            const regBtn = document.getElementById('register-trigger-btn');
+            const successMsg = document.getElementById('success-msg');
+
+            if (state.collectedCount === 6) {
+                // Show Success Message
+                successMsg.classList.remove('hidden');
+
+                // Add extra glow when completed
+                gsap.to(regBtn, { scale: 1.05, boxShadow: "0 0 30px #eab308", duration: 0.5, yoyo: true, repeat: 1 });
+                regBtn.classList.remove('border-white/10');
+                regBtn.classList.add('border-yellow-500');
+            } else {
+                // Hide Success Message
+                successMsg.classList.add('hidden');
+
+                // Revert styling if not complete, but KEEP BUTTON ENABLED
+                regBtn.classList.add('border-white/10');
+                regBtn.classList.remove('border-yellow-500');
+            }
+        }
+
+        // --- COUNTDOWN TIMER ---
+        const deadline = new Date("2026-01-16T12:00:00"); // <-- CHANGE TO YOUR EVENT DATE
+
+        function updateValue(id, newValue) {
+            const el = document.getElementById(id);
+            if (el.innerText !== newValue) {
+                el.innerText = newValue;
+
+                // add animation
+                el.classList.add("animate");
+                setTimeout(() => el.classList.remove("animate"), 300);
+            }
+        }
+
+        function updateTimer() {
+            const now = new Date();
+            let diff = deadline - now;
+
+            if (diff <= 0) {
+                updateValue("days", "00");
+                updateValue("hours", "00");
+                updateValue("minutes", "00");
+                updateValue("seconds", "00");
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / 1000 / 60) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+
+            updateValue("days", String(d).padStart(2, "0"));
+            updateValue("hours", String(h).padStart(2, "0"));
+            updateValue("minutes", String(m).padStart(2, "0"));
+            updateValue("seconds", String(s).padStart(2, "0"));
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // --- IRON MAN TRANSITION ---
+        document.getElementById('register-trigger-btn').addEventListener('click', () => {
+            // REMOVED THE RESTRICTION HERE:
+            // if (state.collectedCount < 6) return; 
+
+            // DISABLE SCROLL TRIGGERS TO PREVENT JUMPING/HIJACKING
+            ScrollTrigger.getAll().forEach(t => t.disable());
+
+            const overlay = document.getElementById('iron-man-overlay');
+            const visual = document.getElementById('iron-man-visual');
+            const text = document.getElementById('im-text');
+            const flash = document.getElementById('white-flash');
+
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+
+            const tl = gsap.timeline();
+
+            tl.to(visual, { opacity: 1, x: 0, duration: 1.2, ease: "power2.out" })
+                .to(VideoFrame = document.getElementById('iron-man-video'), { currentTime: 2, duration: 2, ease: "none" }, "-=0.5")
+                .to(text, { opacity: 1, text: "I...", duration: 0.4, delay: 0.2 })
+                .to(text, { text: "I... AM...", duration: 0.4 })
+                .to(text, { text: "I... AM... IRON MAN", duration: 0.8, color: "#ef4444", textShadow: "0 0 30px red" })
+                .to(flash, { opacity: 1, duration: 0.1 }) // Flash Bang
+                .add(() => {
+                    // Switch to form
+                    overlay.classList.add('hidden');
+                    document.getElementById('main-content').classList.add('hidden');
+                    document.getElementById('splash-screen').classList.add('hidden');
+
+                    const regSection = document.getElementById('registration-section');
+                    regSection.classList.remove('hidden');
+                    window.scrollTo(0, 0); // Reset scroll to top of form
+                })
+                .to(flash, { opacity: 0, duration: 1 });
+        });
+
+        // --- BACK BUTTON LOGIC ---
+        document.getElementById('back-to-home-btn').addEventListener('click', () => {
+            // Hide Registration
+            document.getElementById('registration-section').classList.add('hidden');
+
+            // Show Main Content
+            document.getElementById('main-content').classList.remove('hidden');
+
+            // Re-enable Scroll Triggers
+            ScrollTrigger.getAll().forEach(t => t.enable());
+            ScrollTrigger.refresh();
+
+            // Scroll back to guidelines
+            document.getElementById('guidelines').scrollIntoView({ behavior: 'auto' });
+        });
+
+        // --- ADD MEMBER LOGIC ---
+        let memberCount = 1;
+        document.getElementById('add-member-btn').addEventListener('click', () => {
+            memberCount++;
+            const container = document.getElementById('members-container');
+            const newMemberDiv = document.createElement('div');
+            newMemberDiv.className = "relative bg-cyan-950/10 p-4 rounded border-l-2 border-cyan-500/30 mt-4";
+            newMemberDiv.innerHTML = `
+                <h4 class="text-cyan-600 text-[10px] font-bold mb-2 tracking-widest uppercase">OPERATIVE 0${memberCount}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" placeholder="OPERATIVE NAME" class="bg-transparent border-b border-gray-700 p-2 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 font-mono text-sm w-full">
+                    <input type="tel" placeholder="CONTACT FREQ (PHONE)" class="bg-transparent border-b border-gray-700 p-2 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 font-mono text-sm w-full">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="email" placeholder="OPERATIVE EMAIL" class="bg-transparent border-b border-gray-700 p-2 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 font-mono text-sm w-full">
+                    <input type="url" placeholder="GIT REPO PROFILE" class="bg-transparent border-b border-gray-700 p-2 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 font-mono text-sm w-full">
+                </div>
+            `;
+            container.appendChild(newMemberDiv);
+        });
+
+        // --- MOBILE MENU ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.style.transform = "translateX(0)";
+        });
+
+        const closeMenuFunc = () => {
+            mobileMenu.style.transform = "translateX(100%)";
+        };
+
+        closeMenu.addEventListener('click', closeMenuFunc);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenuFunc));
+
+        // // --- FORM SUBMISSION (MOCK) ---
+        // document.getElementById('reg-form').addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     const btn = e.target.querySelector('button[type="submit"]');
+
+        //     btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> UPLOADING TO STARK SERVERS...';
+        //     btn.disabled = true;
+
+        //     setTimeout(() => {
+        //         alert("MISSION CONFIRMED. Check your comms channel (email) for briefing.");
+        //         btn.innerHTML = '<i class="fa-solid fa-check"></i> PROTOCOL INITIALIZED';
+        //         // Reset button style for success
+        //         btn.classList.remove('from-red-700', 'to-red-900');
+        //         btn.classList.add('bg-green-600');
+        //     }, 2000);
+        // });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackCrypt | The Endgame</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        /* Core Styles */
+        html,
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #050505;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Optimized Background (No Video) */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(20, 20, 20, 0.8) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(20, 20, 20, 0.8) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+
+        /* Subtle Glow */
+        .glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Utilities */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <div class="bg-grid"></div>
+    <div class="glow-overlay"></div>
+
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center">
+        <h1 id="splash-text"
+            class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-500 tracking-widest opacity-0 scale-90 text-center px-4">
+            I AM... IRON MAN
+        </h1>
+    </div>
+
+    <main id="main-content" class="hidden opacity-0">
+        <section id="hero" class="min-h-screen flex items-center justify-center relative pt-20">
+            <div class="text-center z-10 px-4">
+                <h1
+                    class="text-6xl md:text-9xl font-black mb-4 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                    JARVIS, are you up?</h1>
+                <p
+                    class="text-lg md:text-2xl text-purple-400 font-bold tracking-[0.3em] uppercase bg-black/80 border border-purple-900/50 inline-block px-6 py-3 rounded">
+                    BUILD . CODE . CONQUER.</p>
+                <div class="mt-16">
+                    <button id="register-trigger-btn"
+                        class="relative px-12 py-6 bg-black rounded-lg border border-yellow-500 hover:bg-yellow-500/10 transition-all duration-300 group">
+                        <span class="flex items-center space-x-5">
+                            <i class="fa-solid fa-power-off text-yellow-500 text-2xl animate-pulse"></i>
+                            <span class="pr-6 text-gray-100 text-2xl font-bold tracking-wider">INITIATE PROTOCOL</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="registration-section"
+        class="min-h-screen hidden w-full bg-[#050000] relative z-50 py-20 px-4 overflow-y-auto font-mono opacity-0">
+        <div
+            class="fixed top-0 left-0 w-full z-[60] py-6 px-6 md:px-12 flex items-center bg-gradient-to-b from-black to-transparent">
+            <button id="back-to-home-btn"
+                class="text-cyan-400 hover:text-white flex items-center gap-3 transition-all group font-bold tracking-widest uppercase text-sm border border-cyan-500/30 hover:border-cyan-400 px-4 py-2 rounded bg-black">
+                <i class="fa-solid fa-chevron-left transform group-hover:-translate-x-1 transition-transform"></i>
+                <span>ABORT MISSION</span>
+            </button>
+        </div>
+
+        <div class="max-w-5xl mx-auto mt-12 relative z-10">
+            <div
+                class="relative bg-[#1a0505] border-2 border-[#7a0000] rounded-3xl p-1 shadow-[0_0_50px_rgba(255,0,0,0.1)]">
+
+                <div class="bg-black rounded-[20px] p-6 md:p-12">
+
+                    <div class="flex flex-col items-center justify-center mb-10 relative">
+                        <h2
+                            class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 tracking-widest uppercase font-['Orbitron']">
+                            STARK <span class="text-red-600">INDUSTRIES</span>
+                        </h2>
+                        <p class="text-cyan-500 text-xs tracking-[0.5em] mt-2">SECURE SERVER // LEVEL 8</p>
+                    </div>
+
+                    <form id="google-form"
+                        action="https://docs.google.com/forms/d/e/1FAIpQLScnVdHsFhLzCdUzHuGNddugcDqya5HumFg5drwgOrrwU-t0iQ/formResponse"
+                        method="POST" class="space-y-10">
+
+                        <div class="border border-red-900/50 rounded-xl p-6 bg-red-950/5">
+                            <div class="text-yellow-500 text-sm font-bold tracking-widest mb-4">
+                                <i class="fa-solid fa-fingerprint mr-2"></i>TEAM IDENTITY
+                            </div>
+                            <div class="group relative">
+                                <label class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Team
+                                    Name</label>
+                                <input type="text" id="team-name" name="entry.2127177725" required
+                                    class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono placeholder-gray-700"
+                                    placeholder="ENTER TEAM NAME">
+                            </div>
+                        </div>
+
+                        <div class="border border-red-900/50 rounded-xl p-6 bg-red-950/5">
+                            <div class="text-yellow-500 text-sm font-bold tracking-widest mb-4">
+                                <i class="fa-solid fa-user-astronaut mr-2"></i>LEADER INFO
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <label class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Team
+                                        Leader Name</label>
+                                    <input type="text" id="team-leader-name" name="entry.280266649" required
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Team
+                                        Leader Email</label>
+                                    <input type="email" id="team-leader-email" name="entry.1105079313" required
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Contact
+                                        No.</label>
+                                    <input type="tel" id="contact-no" name="entry.1468220529" required
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Team
+                                        Status</label>
+                                    <select id="team-status" name="entry.187220680"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                        <option value="Complete">Team is Complete</option>
+                                        <option value="Need Members">Need Members</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-red-900/50 rounded-xl p-6 bg-red-950/5">
+                            <div class="text-yellow-500 text-sm font-bold tracking-widest mb-4">
+                                <i class="fa-solid fa-university mr-2"></i>COLLEGE INFO
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div>
+                                    <label
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">College
+                                        Name</label>
+                                    <input type="text" id="college-name" name="entry.1533066819" required
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Class</label>
+                                    <input type="text" id="class" name="entry.2025205214" required
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Department</label>
+                                    <input type="text" id="department" name="entry.1655155207" required
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-red-900/50 rounded-xl p-6 bg-red-950/5">
+                            <div class="text-yellow-500 text-sm font-bold tracking-widest mb-4">
+                                <i class="fa-solid fa-users mr-2"></i>MEMBERS
+                            </div>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Member
+                                        1 (Leader) Tshirt Size</label>
+                                    <select name="entry.846704321"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                        <option value="">Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" name="entry.1752697191" placeholder="Member 2 Name"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 font-mono">
+                                    <select name="entry.75497042"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 font-mono">
+                                        <option value="">Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" name="entry.1246823928" placeholder="Member 3 Name"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 font-mono">
+                                    <select name="entry.721366850"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 font-mono">
+                                        <option value="">Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" name="entry.1976622384" placeholder="Member 4 Name"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 font-mono">
+                                    <select name="entry.435655080"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 font-mono">
+                                        <option value="">Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" name="entry.1275173698" placeholder="Member 5 Name"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 font-mono">
+                                    <select name="entry.1862624256"
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 font-mono">
+                                        <option value="">Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-red-900/50 rounded-xl p-6 bg-red-950/5">
+                            <div class="text-yellow-500 text-sm font-bold tracking-widest mb-4">
+                                <i class="fa-solid fa-credit-card mr-2"></i>PAYMENT
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <label class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">City /
+                                        Area</label>
+                                    <input type="text" name="entry.2111833410" required
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-[10px] uppercase text-cyan-600 mb-1 tracking-widest">Transaction
+                                        ID</label>
+                                    <input type="text" name="entry.907799187" required
+                                        class="w-full bg-black border-b border-red-800 text-white p-3 focus:border-cyan-400 focus:outline-none font-mono">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 gap-8 mt-8">
+                                <div>
+                                    <label class="block text-[10px] uppercase text-cyan-600 mb-2 tracking-widest">Scan
+                                        QR to Pay</label>
+                                    <div
+                                        class="w-full bg-black/50 border border-red-800/50 p-4 rounded-lg flex justify-center items-center backdrop-blur-sm">
+                                        <img src="QR.jpg" alt="Payment QR Code"
+                                            class="max-h-48 w-auto border-2 border-cyan-500/30 rounded shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submit-btn"
+                            class="w-full group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-700 to-red-900 p-1 shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] transition-all duration-300 transform hover:-translate-y-1">
+                            <div
+                                class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30">
+                            </div>
+                            <div
+                                class="relative bg-black/20 rounded-lg py-5 px-4 backdrop-blur-sm border border-red-500/30 group-hover:border-yellow-500/50 transition-colors">
+                                <div class="flex items-center justify-center gap-4">
+                                    <i id="btn-icon"
+                                        class="fa-solid fa-power-off text-2xl text-cyan-400 animate-pulse group-hover:text-white"></i>
+                                    <span id="btn-text"
+                                        class="text-xl font-black text-white tracking-[0.2em] font-['Orbitron'] group-hover:text-yellow-400 transition-colors">INITIATE
+                                        UPLOAD</span>
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        // Splash Screen Animation
+        window.addEventListener('load', () => {
+            const splashText = document.getElementById('splash-text');
+            gsap.to(splashText, {
+                opacity: 1, scale: 1, duration: 1.5, ease: "power2.out", onComplete: () => {
+                    gsap.to('#splash-screen', {
+                        opacity: 0, duration: 1, delay: 0.5, onComplete: () => {
+                            document.getElementById('splash-screen').classList.add('hidden');
+                            const main = document.getElementById('main-content');
+                            main.classList.remove('hidden');
+                            gsap.to(main, { opacity: 1, duration: 1 });
+                        }
+                    });
+                }
+            });
+        });
+
+        // Registration Section Trigger
+        document.getElementById('register-trigger-btn').addEventListener('click', () => {
+            const main = document.getElementById('main-content');
+            const reg = document.getElementById('registration-section');
+
+            gsap.to(main, {
+                opacity: 0, duration: 0.5, onComplete: () => {
+                    main.classList.add('hidden');
+                    reg.classList.remove('hidden');
+                    gsap.to(reg, { opacity: 1, duration: 0.5 });
+                }
+            });
+        });
+
+        // Back to Home Button
+        document.getElementById('back-to-home-btn').addEventListener('click', () => {
+            const main = document.getElementById('main-content');
+            const reg = document.getElementById('registration-section');
+
+            gsap.to(reg, {
+                opacity: 0, duration: 0.5, onComplete: () => {
+                    reg.classList.add('hidden');
+                    main.classList.remove('hidden');
+                    gsap.to(main, {
+                        opacity: 1, duration: 0.5, onComplete: () => {
+                            // Redirect to index.html after the animation is complete
+                            window.location.href = 'indexcopy.html';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById("google-form").addEventListener("submit", function (e) {
+            // Prevent default submission
+            e.preventDefault();
+
+            const form = e.target;
+            const action = form.action;
+            const submitBtn = document.getElementById("submit-btn");
+            const btnText = document.getElementById("btn-text");
+            const btnIcon = document.getElementById("btn-icon");
+
+            // Temporarily change button state to show loading/submission
+            btnText.textContent = "UPLOADING...";
+            btnIcon.classList.remove('fa-power-off', 'animate-pulse');
+            btnIcon.classList.add('fa-spinner', 'fa-spin');
+            submitBtn.disabled = true; // Disable button to prevent double-click
+
+            // Collect form data
+            const formData = new FormData(form);
+
+            // Send to Google Form
+            fetch(action, {
+                method: "POST",
+                body: formData,
+                mode: "no-cors"
+            })
+                .then(() => {
+                    // This block executes if the network request was successfully sent (opaque response in no-cors mode)
+
+                    // Revert button state for success confirmation
+                    btnText.textContent = "SUCCESS!";
+                    btnIcon.classList.remove('fa-spinner', 'fa-spin');
+                    btnIcon.classList.add('fa-check');
+
+                    // Delay the redirect so the tester can see the success state
+                    setTimeout(() => {
+                        // Redirect to your success page
+                        window.location.href = "/thank-you.html";
+                    }, 1000); // 1 second delay
+                })
+                .catch(err => {
+                    // This block executes ONLY on a critical network failure (e.g., connection lost, browser error)
+
+                    // Log and show the error on the page
+                    console.error("Form submission error:", err);
+
+                    // Revert button state and show error message
+                    btnText.textContent = "NETWORK ERROR";
+                    btnIcon.classList.remove('fa-spinner', 'fa-spin', 'text-cyan-400');
+                    btnIcon.classList.add('fa-triangle-exclamation', 'text-yellow-400');
+                    submitBtn.disabled = false; // Re-enable button
+
+                    // Optional: Show a more visible error message using SweetAlert
+                    swal("Transmission Failed!", "A critical network error occurred. Check console for details.", "error");
+
+                    // We stop the redirect here, as requested for testing
+                });
+        });
+    </script>
+
+</body>
+
+</html>

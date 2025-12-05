@@ -43,7 +43,7 @@
         html,
         body {
             font-family: 'Rajdhani', sans-serif;
-            cursor: url('t(1).png'), auto;
+            cursor: url('assets/t\(1\).png'), auto;
             background-color: #050505;
             color: white;
             overflow-x: hidden;
@@ -64,112 +64,28 @@
         }
 
         /* General Styles for Navbar */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            z-index: 40;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 40;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-            /* background must be at least slightly transparent for blur to show */
-            background-color: rgba(0, 0, 0, 0.6);
+    /* background must be at least slightly transparent for blur to show */
+    background-color: rgba(0, 0, 0, 0.6);
 
-            /* Blur (cross-browser) */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            /* Safari & iOS */
+    /* Blur (cross-browser) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari & iOS */
 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-
-        /* Mobile Menu (initially off-screen) */
-        #mobile-menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 30;
-            background-color: rgba(0, 0, 0, 0.95);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            font-size: 1.5rem;
-            transform: translateX(100%);
-            /* Initially off-screen */
-            transition: transform 0.3s ease;
-        }
-
-        /* Show Mobile Menu */
-        #mobile-menu.show {
-            transform: translateX(0);
-            /* On-screen */
-        }
-
-        /* Mobile Menu Links */
-        #mobile-menu a {
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: color 0.3s;
-        }
-
-        #mobile-menu a:hover {
-            color: #8b5cf6;
-            /* Purple hover color */
-        }
-
-        /* Mobile Menu Close Button */
-        #close-menu {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.7);
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        #close-menu:hover {
-            color: #f3f4f6;
-        }
-
-        /* Responsive: Show Mobile Menu Button on Small Screens */
-        #mobile-menu-btn {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-
-            /* Desktop menu hides and mobile menu button shows */
-            nav .md\\:flex {
-                display: none;
-            }
-
-            #mobile-menu-btn {
-                display: block;
-                font-size: 2rem;
-                color: #ffffff;
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
-
-            /* Mobile Menu Item Styling */
-            #mobile-menu a {
-                font-size: 1.25rem;
-                margin-bottom: 1rem;
-            }
-        }
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
 
 
 
@@ -229,8 +145,8 @@
                 transform: translateY(0px);
             }
 
-            50% {
-                transform: translateY(-20px);
+            0% {
+                transform: translateY(0px);
             }
         }
 
@@ -533,7 +449,7 @@
 </head>
 
 <body class="antialiased" style="
-    background: url('bg.png') no-repeat center center fixed;
+    background: url('assets/bg.png') no-repeat center center fixed;
     background-size: cover;
 ">
 
@@ -547,10 +463,9 @@
         class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center text-center">
         <div class="relative mb-8 animate-float">
             <!-- Gauntlet Image with Fallback -->
-            <img src="Thanos-Infinity.png" alt="Infinity Gauntlet" id="splash-gauntlet"
+            <img src="assets/Thanos-Infinity.png" alt="Infinity Gauntlet" id="splash-gauntlet"
                 class="h-64 md:h-96 w-auto object-contain drop-shadow-[00_0_30px_rgba(212,175,55,0.3)]"
                 onerror="this.classList.add('error-hidden')">
-
             <!-- Fallback Icon if Image Fails -->
             <!-- <div class="fallback-icon text-9xl text-[#d4af37]" id="ensplash-fallback">
                 <i class="fa-solid fa-hand-fist"></i>
@@ -596,52 +511,53 @@
 
     <!-- NAVIGATION -->
     <nav class="fixed w-full z-40 px-6 py-4 flex justify-between items-center bg-black/80 backdrop-blur-md border-b border-white/10 transition-transform duration-300"
-        id="navbar">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-            <img src="hackcrypt_logo.png" alt="hackcrypt_logo" width="70px" height="70px">
-            <span class="text-xl font-bold tracking-wider brand-font">HACKCRYPT</span>
-        </div>
-
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex gap-8 text-sm tracking-widest uppercase text-gray-300 items-center">
-            <a href="#hero" class="hover:text-purple-400 transition-colors">Home</a>
-            <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
-            <a href="#endgame" class="hover:text-purple-400 transition-colors">Saga</a>
-            <a href="#time" class="hover:text-green-400 transition-colors">Time</a>
-            <a href="#problems" class="hover:text-blue-400 transition-colors">Problems</a>
-            <a href="#prizes" class="hover:text-red-400 transition-colors">Prizes</a>
-            <a href="#timeline-wrapper" class="hover:text-emerald-400 transition-colors">Timeline</a>
-            <a href="#contact_us" class="hover:text-red-400 transition-colors">Contact Us</a>
-            <!-- Navbar Stone Counter -->
-            <div
-                class="border border-yellow-500/50 rounded px-3 py-1 text-[#d4af37] font-bold ml-4 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-                <i class="fa-solid fa-gem mr-2"></i><span id="nav-stone-count">0</span>/6
-            </div>
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <button class="md:hidden text-2xl focus:outline-none" id="mobile-menu-btn" title="Open Mobile Menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-    </nav>
-
-    <!-- MOBILE MENU -->
-    <div id="mobile-menu"
-        class="fixed inset-0 z-30 bg-black/95 flex flex-col items-center justify-center gap-8 text-2xl transform translate-x-full transition-transform duration-300">
-        <a href="#hero" class="nav-link-mobile hover:text-purple-500">Home</a>
-        <a href="#about" class="nav-link-mobile hover:text-purple-500">About</a>
-        <a href="#endgame" class="nav-link-mobile hover:text-purple-500">The Saga</a>
-        <a href="#time" class="nav-link-mobile hover:text-green-500">Time</a>
-        <a href="#problems" class="nav-link-mobile hover:text-blue-500">Problems</a>
-        <a href="#timeline-wrapper" class="nav-link-mobile hover:text-emerald-500">Timeline</a>
-        <a href="#contact_us" class="nav-link-mobile hover:text-emerald-500">Contact Us</a>
-        <div class="text-[#d4af37] font-bold mt-4 border border-yellow-500/50 px-4 py-2 rounded">
-            <span id="mobile-stone-count">0</span>/6 STONES
-        </div>
-        <button id="close-menu" class="absolute top-6 right-6 text-3xl text-gray-400" title="Close Menu">
-            <i class="fa-solid fa-times"></i>
-        </button>
+    id="navbar">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+        <img src="assets/hackcrypt_logo.png" alt="hackcrypt_logo" width="70px" height="70px">
+        <span class="text-xl font-bold tracking-wider brand-font">HACKCRYPT</span>
     </div>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex gap-8 text-sm tracking-widest uppercase text-gray-300 items-center">
+        <a href="#hero" class="hover:text-purple-400 transition-colors">Home</a>
+        <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
+        <a href="#endgame" class="hover:text-purple-400 transition-colors">Cosmic Cipher</a>
+        <a href="#time" class="hover:text-green-400 transition-colors">Time</a>
+        <a href="#problems" class="hover:text-blue-400 transition-colors">Problems</a>
+        <a href="#prizes" class="hover:text-red-400 transition-colors">Prizes</a>
+        <a href="#timeline-wrapper" class="hover:text-emerald-400 transition-colors">Timeline</a>
+        <a href="#contact_us" class="hover:text-red-400 transition-colors">Contact Us</a>
+        <!-- Navbar Stone Counter -->
+        <div
+            class="border border-yellow-500/50 rounded px-3 py-1 text-[#d4af37] font-bold ml-4 shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+            <i class="fa-solid fa-gem mr-2"></i><span id="nav-stone-count">0</span>/6
+        </div>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <!-- <button class="md:hidden text-2xl focus:outline-none" id="mobile-menu-btn" title="Open Mobile Menu">
+        <i class="fa-solid fa-bars"></i>
+    </button> -->
+</nav>
+
+<!-- MOBILE MENU -->
+        <div id="mobile-menu"
+             class="fixed inset-0 z-30 bg-black/95 flex flex-col items-center justify-center gap-8 text-2xl transform translate-x-full transition-transform duration-300 " >
+              <a href="#hero" class="nav-link-mobile hover:text-purple-500">Home</a>
+                <a href="#about" class="nav-link-mobile hover:text-purple-500">About</a>
+                      <a href="#endgame" class="nav-link-mobile hover:text-purple-500">The Saga</a>
+               <a href="#time" class="nav-link-mobile hover:text-green-500">Time</a>
+               <a href="#problems" class="nav-link-mobile hover:text-blue-500">Problems</a>
+    <a href="#timeline-wrapper" class="nav-link-mobile hover:text-emerald-500">Timeline</a>
+    <a href="#contact_us" class="nav-link-mobile hover:text-emerald-500">Contact Us</a>
+    <div class="text-[#d4af37] font-bold mt-4 border border-yellow-500/50 px-4 py-2 rounded">
+        <span id="mobile-stone-count">0</span>/6 STONES
+    </div>
+    <button id="close-menu" class="absolute top-6 right-6 text-3xl text-gray-400"  title="Close Menu" >
+        <i class="fa-solid fa-times"></i>
+    </button>
+</div>
+
 
 
     <!-- MAIN CONTENT -->
@@ -653,7 +569,7 @@
             <div class="text-center z-10 px-4">
                 <div class="mb-8 animate-float flex justify-center">
                     <!-- Hero Image with Fallback -->
-                    <img src="hackcrypt_logo.png" title="HackCrypt Logo" class="h-72 sm:h-80 md:h-96 w-auto object-contain 
+                    <img src="assets/hackcrypt_logo.png" title="HackCrypt Logo" class="h-72 sm:h-80 md:h-96 w-auto object-contain 
             drop-shadow-[0_0_50px_rgba(168,85,247,0.4)] opacity-100 mask-image-gradient"
                         onerror="this.classList.add('error-hidden')">
 
@@ -686,7 +602,7 @@
 
                     <div
                         class="bg-gray-800/50 p-8 rounded-xl border-l-4 border-purple-500 shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-2xl">
-                        <img src="Trcaclogo.png" alt="TRCAC Logo"
+                        <img src="assets/Trcaclogo.png" alt="TRCAC Logo"
                             class="mx-auto mb-4 h-52 w-52 object-contain hover:scale-105 focus:scale-105 transition duration-300">
 
                         <p class="text-gray-300 leading-relaxed text-lg text-justify">
@@ -708,7 +624,7 @@
 
                     <div
                         class="bg-gray-800/50 p-8 rounded-xl border-l-4 border-purple-500 shadow-lg text-center transform transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-2xl">
-                        <img src="dev Logo.png" alt="DevClub Logo"
+                        <img src="assets/dev Logo.png" alt="DevClub Logo"
                             class="mx-auto mb-4 h-52 w-52 object-contain hover:scale-105 focus:scale-105 transition duration-300">
                         <p class="text-gray-300 leading-relaxed text-lg text-justify">
                             DevClub TRCAC, under the B.Sc. (I.T.) and B.Sc. (C.S.) Department of TRCAC, is a dynamic
@@ -720,7 +636,7 @@
                         </p>
 
                         <div class="mt-6">
-                            <a href="#"
+                            <a href="https://devclub-trcac.github.io/devclub-trcac/"
                                 class="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition">
                                 About DevClub
                             </a>
@@ -734,14 +650,14 @@
 
 
 
-        <!-- ENDGAME SAGA (Horizontal Scroll) -->
+        <!-- ENDGAME Cosmic Cipher (Horizontal Scroll) -->
         <div id="endgame-wrapper" class="overflow-hidden bg-black relative z-20">
             <section id="endgame" class="h-screen flex items-center bg-black horizontal-scroll-container">
 
                 <!-- Intro Panel -->
                 <div class="panel bg-black border-r border-gray-900 flex-col text-center p-8 min-w-[100vw]">
-                    <h2 class="text-3xl md:text-9xl font-black text-gray-800 mb-4 uppercase">Cosmic Cypher</h2>
-                    <p class="text-base md:text-xl text-purple-500 tracking-[0.5em] animate-pulse">Scroll Down >></p>
+                    <h2 class="text-3xl md:text-9xl font-black text-gray-800 mb-4 uppercase">Cosmic Cipher</h2>
+                    <p class="text-base md:text-xl text-purple-500 tracking-[0.5em] animate-pulse">Continue Scrolling  >></p>
                 </div>
 
                 <!-- Reality Stone (Red) -->
@@ -816,7 +732,7 @@
                     <h3
                         class="text-2xl md:text-7xl font-bold text-yellow-400 mb-6 z-10 drop-shadow-[0_0_15px_rgba(255,200,0,0.8)]">
                         "Six Stones. One Snap."</h3>
-                    <img src="sl.png" alt="" class="h-40 w-53 mx-auto">
+                    <img src="assets/sl.png" alt="" class="h-40 w-53 mx-auto">
                     <p class="text-sm md:text-lg text-gray-300 z-10 max-w-2xl mx-auto mt-4">You’ve mastered the
                         stones—now wield the Gauntlet. Build a project powerful enough to reshape the hackathon
                         battlefield.</p>
@@ -1170,8 +1086,10 @@
                     event.</p>
                 <p class="mb-4"><span class="text-yellow-500 font-bold">03.</span> Decisions of the jury are final and
                     binding.</p>
-                <p><span class="text-yellow-500 font-bold">04.</span> Plagiarism will lead to immediate disqualification
-                    (snapped out of existence).</p>
+                <p class="mb-4"><span class="text-yellow-500 font-bold">04.</span> The teams who are not shortlisted will be refunded within 7 working days..</p>
+                <p><span class="text-yellow-500 font-bold">05.</span> Plagiarism will lead to snapped out of existence.
+                    (immediate disqualification).</p>
+                
             </div>
 
             <!-- THE BIG BUTTON -->
@@ -1267,7 +1185,7 @@
     <script>
         // Redirect to form.html when the registration section is triggered
         document.getElementById('register-trigger-btn').addEventListener('click', () => {
-            window.location.href = "form.html";
+            window.location.href = "pages/form.html";
         });
     </script>
 
@@ -1325,19 +1243,19 @@
             const mainContent = document.getElementById('main-content');
 
             // 1. FORCE FLASH TO COVER ENTIRE SCREEN (Break out of parent container)
-            flash.style.position = 'fixed';
+            flash.style.position = 'auto';
             flash.style.top = '0';
             flash.style.left = '0';
-            flash.style.width = '9999vw';
-            flash.style.height = '9999vh';
+            flash.style.width = '0vw';
+            flash.style.height = '0vh';
             flash.style.borderRadius = '0';
-            flash.style.zIndex = '9999'; // Ensure it sits on top of everything
+            flash.style.zIndex = '0'; // Ensure it sits on top of everything
             flash.style.backgroundColor = 'white';
 
             // 2. The Animation Sequence
             snapTL
                 // Step A: Anticipation (Shrink gauntlet slightly)
-                .to("#splash-gauntlet", { scale: 0.9, duration: 0.2, ease: "power2.in" })
+                .to("#splash-gauntlet", { scale: 500, duration: 0.75, ease: "power2.in" })
 
                 // Step B: SNAP & FLASH BANG (Simultaneous)
                 .to("#splash-gauntlet", { scale: 1.2, rotation: 5, duration: 0.1, ease: "elastic.out(1, 0.3)" })
@@ -1486,42 +1404,6 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // --- IRON MAN TRANSITION ---
-        document.getElementById('register-trigger-btn').addEventListener('click', () => {
-            // REMOVED THE RESTRICTION HERE:
-            // if (state.collectedCount < 6) return; 
-
-            // DISABLE SCROLL TRIGGERS TO PREVENT JUMPING/HIJACKING
-            ScrollTrigger.getAll().forEach(t => t.disable());
-
-            const overlay = document.getElementById('iron-man-overlay');
-            const visual = document.getElementById('iron-man-visual');
-            const text = document.getElementById('im-text');
-            const flash = document.getElementById('white-flash');
-
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
-
-            const tl = gsap.timeline();
-
-            tl.to(visual, { opacity: 1, x: 0, duration: 1.2, ease: "power2.out" })
-                .to(VideoFrame = document.getElementById('iron-man-video'), { currentTime: 2, duration: 2, ease: "none" }, "-=0.5")
-                .to(text, { opacity: 1, text: "I...", duration: 0.4, delay: 0.2 })
-                .to(text, { text: "I... AM...", duration: 0.4 })
-                .to(text, { text: "I... AM... IRON MAN", duration: 0.8, color: "#ef4444", textShadow: "0 0 30px red" })
-                .to(flash, { opacity: 1, duration: 0.1 }) // Flash Bang
-                .add(() => {
-                    // Switch to form
-                    overlay.classList.add('hidden');
-                    document.getElementById('main-content').classList.add('hidden');
-                    document.getElementById('splash-screen').classList.add('hidden');
-
-                    const regSection = document.getElementById('registration-section');
-                    regSection.classList.remove('hidden');
-                    window.scrollTo(0, 0); // Reset scroll to top of form
-                })
-                .to(flash, { opacity: 0, duration: 1 });
-        });
 
         // --- BACK BUTTON LOGIC ---
         document.getElementById('back-to-home-btn').addEventListener('click', () => {
@@ -1539,73 +1421,24 @@
             document.getElementById('guidelines').scrollIntoView({ behavior: 'auto' });
         });
 
-        // --- ADD MEMBER LOGIC ---
-        let memberCount = 1;
-        document.getElementById('add-member-btn').addEventListener('click', () => {
-            memberCount++;
-            const container = document.getElementById('members-container');
-            const newMemberDiv = document.createElement('div');
-            newMemberDiv.className = "relative bg-cyan-950/10 p-4 rounded border-l-2 border-cyan-500/30 mt-4";
-            newMemberDiv.innerHTML = `
-                <h4 class="text-cyan-600 text-[10px] font-bold mb-2 tracking-widest uppercase">OPERATIVE 0${memberCount}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input type="text" placeholder="OPERATIVE NAME" class="bg-transparent border-b border-gray-700 p-2 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 font-mono text-sm w-full">
-                    <input type="tel" placeholder="CONTACT FREQ (PHONE)" class="bg-transparent border-b border-gray-700 p-2 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 font-mono text-sm w-full">
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="email" placeholder="OPERATIVE EMAIL" class="bg-transparent border-b border-gray-700 p-2 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 font-mono text-sm w-full">
-                    <input type="url" placeholder="GIT REPO PROFILE" class="bg-transparent border-b border-gray-700 p-2 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 font-mono text-sm w-full">
-                </div>
-            `;
-            container.appendChild(newMemberDiv);
-        });
 
         // --- MOBILE MENU ---
 
-
-
-        // Mobile menu toggle functionality
-        const mobileMenuButton = document.getElementById('mobile-menu-btn');
+         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const closeMenuButton = document.getElementById('close-menu');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileLinks = document.querySelectorAll('.nav-link-mobile');
 
-        // Open mobile menu when the hamburger icon is clicked
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.add('show'); // Add the show class to display the menu
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.style.transform = "translateX(0)";
         });
 
-        // Close the mobile menu when the close button is clicked
-        closeMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.remove('show'); // Remove the show class to hide the menu
-        });
+        const closeMenuFunc = () => {
+            mobileMenu.style.transform = "translateX(100%)";
+        };
 
-        // Optional: Close mobile menu if user clicks anywhere outside the menu
-        window.addEventListener('click', (event) => {
-            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
-                mobileMenu.classList.remove('show'); // Close menu if clicked outside
-            }
-        });
-
-
-
-
-        // // --- FORM SUBMISSION (MOCK) ---
-        // document.getElementById('reg-form').addEventListener('submit', (e) => {
-        //     e.preventDefault();
-        //     const btn = e.target.querySelector('button[type="submit"]');
-
-        //     btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> UPLOADING TO STARK SERVERS...';
-        //     btn.disabled = true;
-
-        //     setTimeout(() => {
-        //         alert("MISSION CONFIRMED. Check your comms channel (email) for briefing.");
-        //         btn.innerHTML = '<i class="fa-solid fa-check"></i> PROTOCOL INITIALIZED';
-        //         // Reset button style for success
-        //         btn.classList.remove('from-red-700', 'to-red-900');
-        //         btn.classList.add('bg-green-600');
-        //     }, 2000);
-        // });
-
+        closeMenu.addEventListener('click', closeMenuFunc);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenuFunc));
 
     </script>
 
